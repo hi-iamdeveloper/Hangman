@@ -8,12 +8,10 @@ import java.util.Random;
 
 public class WordProvider {
 
-    private final String PATH;
     private final Random random = new Random();
     List<String> words;
 
     public WordProvider(String PATH) {
-        this.PATH = PATH;
         Path path = Path.of(PATH);
 
             try {

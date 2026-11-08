@@ -1,19 +1,18 @@
+import java.util.*;
+
+
+WordProvider provider = wordProviderInitialize("src/words.txt");
+public static final Scanner SCANNER = new Scanner(System.in);
 
 
 void main() {
 
-    Scanner scanner = new Scanner(System.in);
-    WordProvider provider = wordProviderInitialize("src/words.txt");
-
     firstGreeting();
 
     while (true) {
-
         printMenu();
-        startGame(scanner, provider);
+        startGame();
     }
-
-
 }
 
 void printMenu() {
@@ -24,18 +23,18 @@ void printMenu() {
 
 }
 
-void startGame(Scanner scanner, WordProvider provider) {
+void startGame() {
 
     int parsedInput;
 
-    String input = scanner.nextLine();
+    String input = SCANNER.nextLine();
 
     try {
         parsedInput = Integer.parseInt(input);
         switch (parsedInput) {
             case 1:
                 HangmanGame game = new HangmanGame();
-                game.startGame(scanner, provider.getWord());
+                game.startGame(SCANNER, provider.getWord());
             case 2:
                 return;
             default:

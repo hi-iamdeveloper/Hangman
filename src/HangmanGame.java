@@ -2,11 +2,11 @@ import java.util.*;
 
 public class HangmanGame {
 
-    final static int ATTEMPTS = 6;
+    private final Set<Character> enteredLetters = new HashSet<>();
+    private final static int ATTEMPTS = 6;
 
     void startGame(Scanner scanner, String word) {
 
-        Set<Character> usedLetters = new HashSet<>();
         char[] hiddenLetters = initialize(word.length()); /* в этом случае можно было бы
         использовать arrays.fill(), но по мне теряется смысл пет проекта (все сам для учебы) +
         когда ко мне в голову пришла подобная реализация, я почуствовал себя g / chad и уже не мог
@@ -14,13 +14,13 @@ public class HangmanGame {
         */
         int tries = 0;
 
-        System.out.println("Игра запущена! Слово состоит из " + word.length());
+        System.out.println("Игра запущена! Слово состоит из " + word.length() + " букв");
         System.out.println(hiddenLetters);
 
         while (tries < ATTEMPTS) {
 
             System.out.println("Осталось попыток: " + (ATTEMPTS - tries));
-            char letter = inputAndletterCheck(scanner, usedLetters);
+            char letter = inputAndletterCheck(scanner, enteredLetters);
             boolean check = checkLetter(letter, word, hiddenLetters);
             if (!check) {
                 tries++;
@@ -41,6 +41,7 @@ public class HangmanGame {
     char inputAndletterCheck(Scanner scanner, Set<Character> usedLetters) {
 
         while (true) {
+            displayEnteredLetter(getEnteredLetters());
             System.out.println("Введите букву");
             String input = scanner.nextLine();
             if (input.length() == 1) {
@@ -51,23 +52,23 @@ public class HangmanGame {
                 if (!Character.isLetter(letter)) {
                     System.out.println("Введите букву, а не цифру или символ!");
                     continue;
+                } else if (isLetterRussian(letter)) {
+                    System.out.println("Введите русскую букву, а не цифру, символ или латиницу!");
+                    continue;
                 }
-
                 if (letter == 'ё') {
                     letter = 'е';
                 }
-
-                if (letterUsed(usedLetters, letter)) {
+                if (isLetterUsed(usedLetters, letter)) {
                     return letter;
                 }
             } else {
                 System.out.println("Некоректный ввод! Вводите по одной букве за раз!");
             }
-
         }
     }
 
-    boolean letterUsed(Set<Character> letters, char letter) {
+    boolean isLetterUsed(Set<Character> letters, char letter) {
 
         if (letters.contains(letter)) {
             System.out.println("Эта буква уже есть!");
@@ -112,5 +113,15 @@ public class HangmanGame {
         return new String(hiddenLetters).indexOf('_') == -1;
     }
 
+    public void displayEnteredLetter(Set<Character> enteredLetters) {
+        System.out.println("Введенные буквы: " + enteredLetters);
+    }
 
+    public boolean isLetterRussian(char letter) {
+        return ((letter >= 'а' && letter <= 'я') || letter == 'ё');
+    }
+
+    public Set<Character> getEnteredLetters() {
+        return enteredLetters;
+    }
 }
