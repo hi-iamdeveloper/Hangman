@@ -4,6 +4,7 @@ public class HangmanGame {
 
     private final Set<Character> enteredLetters = new HashSet<>();
     private final static int ATTEMPTS = 6;
+    private final PictureStorage pictureStorage = new PictureStorage();
 
     void startGame(Scanner scanner, String word) {
 
@@ -24,7 +25,7 @@ public class HangmanGame {
             boolean check = checkLetter(letter, word, hiddenLetters);
             if (!check) {
                 tries++;
-                System.out.println(HangmanState.fromTries(tries));
+                System.out.println(pictureStorage.getPicture(tries));
             }
             System.out.println(hiddenLetters);
 
@@ -118,7 +119,7 @@ public class HangmanGame {
     }
 
     public boolean isLetterRussian(char letter) {
-        return ((letter >= 'а' && letter <= 'я') || letter == 'ё');
+        return !((letter >= 'а' && letter <= 'я') || letter == 'ё');
     }
 
     public Set<Character> getEnteredLetters() {

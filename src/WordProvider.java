@@ -8,26 +8,26 @@ import java.util.Random;
 
 public class WordProvider {
 
-    private final Random random = new Random();
-    List<String> words;
+    private final Random RANDOM = new Random();
+    private final List<String> words;
 
-    public WordProvider(String PATH) {
-        Path path = Path.of(PATH);
+    public WordProvider(String filename) {
+        Path path = Path.of(filename);
 
             try {
                 words = Files.readAllLines(path, StandardCharsets.UTF_8);
                 if (words.isEmpty()) {
-                    throw new IllegalStateException("Слова в файле отсутсвуют");
+                    throw new IllegalStateException("There is no words in file");
                 }
             } catch (IOException e) {
-                throw new UncheckedIOException("Не удалось загрузить слова: " + PATH, e);
+                throw new UncheckedIOException("Couldn't load a file: " + path, e);
             }
 
     }
 
 
     public String getWord() {
-        return words.get(random.nextInt(words.size()));
+        return words.get(RANDOM.nextInt(words.size()));
     }
 
 }

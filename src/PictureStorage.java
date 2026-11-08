@@ -1,5 +1,5 @@
-public enum HangmanState {
-    START(
+public class PictureStorage {
+    private static final String[] PICTERS = {
             """
              -----
              |   |
@@ -8,9 +8,8 @@ public enum HangmanState {
              |
              |
             _|_
-            """
-    ),
-    HEAD(
+            """,
+
             """
              -----
              |   |
@@ -19,9 +18,8 @@ public enum HangmanState {
              |
              |
             _|_
-            """
-    ),
-    BODY(
+            """,
+
             """
              -----
              |   |
@@ -30,9 +28,8 @@ public enum HangmanState {
              |
              |
             _|_
-            """
-    ),
-    LEFT_ARM(
+            """,
+
             """
              -----
              |   |
@@ -41,9 +38,8 @@ public enum HangmanState {
              |
              |
             _|_
-            """
-    ),
-    BOTH_ARMS(
+            """,
+
             """
              -----
              |   |
@@ -52,9 +48,8 @@ public enum HangmanState {
              |
              |
             _|_
-            """
-    ),
-    LEFT_LEG(
+            """,
+
             """
              -----
              |   |
@@ -63,9 +58,8 @@ public enum HangmanState {
              |  /
              |
             _|_
-            """
-    ),
-    DEAD(
+            """,
+
             """
              -----
              |   |
@@ -75,28 +69,9 @@ public enum HangmanState {
              |
             _|_
             """
-    );
+    };
 
-    private final String art;
-
-    HangmanState(String art) {
-        this.art = art;
-    }
-
-    public static HangmanState fromTries(int tries) {
-        return switch (tries) {
-            case 0 -> START;
-            case 1 -> HEAD;
-            case 2 -> BODY;
-            case 3 -> LEFT_ARM;
-            case 4 -> BOTH_ARMS;
-            case 5 -> LEFT_LEG;
-            default -> DEAD; // 6 и больше
-        };
-    }
-
-    @Override
-    public String toString() {
-        return art;
+    public String getPicture(int num) {
+        return PICTERS[num];
     }
 }
