@@ -36,7 +36,7 @@ void startGame() {
         switch (command) {
             case START:
                 HangmanGame game = new HangmanGame();
-                game.startGame(SCANNER, provider.getWord());
+                game.startGame(SCANNER, provider);
             case QUIT:
                 return;
             default:
